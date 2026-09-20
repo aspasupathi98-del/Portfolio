@@ -3,29 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#000000">
+<script>try{if(localStorage.getItem("theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>
 <title>Anbu Sundara Pasupathi D | AWS Cloud Engineer</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0e1a;
-    --surface: #111827;
-    --card: #161e2e;
-    --border: #1f2d45;
-    --accent: #00d4ff;
-    --accent2: #ff6b35;
-    --accent3: #7c3aed;
-    --text: #e8f0fe;
-    --muted: #8899aa;
-    --green: #00ff9f;
+    color-scheme: dark;
+    --bg: #000000;
+    --bg-rgb: 0,0,0;
+    --surface: #0a0a0a;
+    --card: #0f0f0f;
+    --border: #2a2a2a;
+    --accent: #ff3b47;
+    --accent-rgb: 255,59,71;
+    --accent-fill: #e11d2e;
+    --accent-fill-hover: #c1121f;
+    --on-accent: #ffffff;
+    --accent2: #f2f2f2;
+    --accent3: #7a1420;
+    --text: #f5f5f5;
+    --muted: #a3a3a3;
+    --green: #2ee59d;
+    --tag-text: #ff8f98;
+    --grid-line: transparent;
+    --shadow: rgba(0,0,0,0.6);
+    --dot-a: 0.55;
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --bg: #fafafa;
+    --bg-rgb: 250,250,250;
+    --surface: #f2f2f3;
+    --card: #ffffff;
+    --border: #e3e3e6;
+    --accent: #d0111f;
+    --accent-rgb: 208,17,31;
+    --accent-fill: #d0111f;
+    --accent-fill-hover: #a80d19;
+    --on-accent: #ffffff;
+    --accent2: #141414;
+    --accent3: #f0a0a6;
+    --text: #141414;
+    --muted: #5f5f66;
+    --green: #0a7d4f;
+    --tag-text: #a80d19;
+    --grid-line: rgba(208,17,31,0.04);
+    --shadow: rgba(20,20,20,0.12);
+    --dot-a: 0.32;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; overflow-x: hidden; }
+  body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; overflow-x: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
     background-size: 50px 50px;
     pointer-events: none;
     z-index: 0;
@@ -34,15 +68,19 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; justify-content: space-between; align-items: center;
     padding: 1.2rem 4rem;
-    background: rgba(10,14,26,0.85);
+    background: rgba(var(--bg-rgb),0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
   .logo { font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--accent); letter-spacing: 2px; }
   .logo span { color: var(--accent2); }
-  nav ul { display: flex; gap: 2.5rem; list-style: none; }
+  nav ul { display: flex; gap: 2.5rem; list-style: none; margin-left: auto; }
   nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; transition: color 0.3s; }
   nav a:hover { color: var(--accent); }
+
+  .theme-toggle { flex-shrink: 0; display: inline-flex; align-items: center; gap: 0.5rem; margin-left: 2rem; background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: 999px; padding: 0.4rem 0.9rem; font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 1px; cursor: pointer; transition: border-color 0.3s, color 0.3s; }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
   /* HERO */
   .hero {
@@ -50,7 +88,7 @@
     padding: 6rem 4rem 4rem; position: relative; z-index: 1;
     gap: 4rem;
   }
-  .hero-content { max-width: 600px; flex: 1; }
+  .hero-content { max-width: 660px; flex: 1; min-width: 0; }
   .hero-photo-wrap {
     flex-shrink: 0;
     display: flex;
@@ -64,7 +102,7 @@
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid var(--accent);
-    box-shadow: 0 0 30px rgba(0,212,255,0.3), 0 0 60px rgba(0,212,255,0.1);
+    box-shadow: 0 0 30px rgba(var(--accent-rgb),0.3), 0 0 60px rgba(var(--accent-rgb),0.1);
   }
   .hero-photo-name {
     font-family: 'Space Mono', monospace;
@@ -84,6 +122,7 @@
     letter-spacing: -1px; margin-bottom: 0.5rem;
     animation: fadeUp 0.6s 0.1s ease both;
   }
+  .hero h1 .nowrap { white-space: nowrap; }
   .hero h1 .highlight { color: transparent; -webkit-text-stroke: 2px var(--accent); }
   .hero-role { font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--accent2); margin-bottom: 1.5rem; animation: fadeUp 0.6s 0.2s ease both; }
   .hero p { font-size: 1rem; color: var(--muted); line-height: 1.8; max-width: 500px; margin-bottom: 2.5rem; animation: fadeUp 0.6s 0.3s ease both; }
@@ -94,8 +133,8 @@
     font-weight: 700; font-size: 0.85rem; letter-spacing: 1px;
     text-decoration: none; border-radius: 3px; transition: all 0.3s; cursor: pointer; border: none;
   }
-  .btn-primary { background: var(--accent); color: var(--bg); }
-  .btn-primary:hover { background: #00b8d9; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,212,255,0.3); }
+  .btn-primary { background: var(--accent-fill); color: var(--on-accent); }
+  .btn-primary:hover { background: var(--accent-fill-hover); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(var(--accent-rgb),0.3); }
   .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
   .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
@@ -114,11 +153,11 @@
 
   .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
   .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
-  .skill-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(0,212,255,0.1); }
+  .skill-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(var(--accent-rgb),0.1); }
   .skill-card-icon { font-size: 1.8rem; margin-bottom: 0.8rem; }
   .skill-card h3 { font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; font-family: 'Space Mono', monospace; }
   .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-  .tag { font-size: 0.75rem; padding: 0.3rem 0.7rem; background: rgba(0,212,255,0.08); color: var(--text); border: 1px solid rgba(0,212,255,0.15); border-radius: 2px; font-family: 'Space Mono', monospace; }
+  .tag { font-size: 0.75rem; padding: 0.3rem 0.7rem; background: rgba(var(--accent-rgb),0.08); color: var(--text); border: 1px solid rgba(var(--accent-rgb),0.15); border-radius: 2px; font-family: 'Space Mono', monospace; }
 
   .timeline { position: relative; padding-left: 2rem; }
   .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent3)); }
@@ -131,25 +170,36 @@
   .timeline-desc li { font-size: 0.9rem; color: var(--muted); padding-left: 1rem; position: relative; line-height: 1.6; }
   .timeline-desc li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
 
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: 2rem; }
   .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
-  .project-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+  .project-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px var(--shadow); }
   .project-header { padding: 1.5rem 1.5rem 1rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; }
   .project-icon { font-size: 2rem; }
   .project-links a { display: inline-flex; align-items: center; gap: 0.3rem; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--accent); text-decoration: none; border: 1px solid var(--accent); padding: 0.3rem 0.6rem; border-radius: 2px; letter-spacing: 1px; transition: all 0.3s; }
-  .project-links a:hover { background: var(--accent); color: var(--bg); }
+  .project-links a:hover { background: var(--accent-fill); border-color: var(--accent-fill); color: var(--on-accent); }
   .project-body { padding: 1.2rem 1.5rem 1.5rem; }
   .project-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.8rem; line-height: 1.3; }
   .project-body p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.2rem; }
   .project-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-  .tech-tag { font-size: 0.7rem; padding: 0.25rem 0.6rem; background: rgba(124,58,237,0.15); color: #a78bfa; border: 1px solid rgba(124,58,237,0.25); border-radius: 2px; font-family: 'Space Mono', monospace; }
+  .tech-tag { font-size: 0.7rem; padding: 0.25rem 0.6rem; background: rgba(var(--accent-rgb),0.12); color: var(--tag-text); border: 1px solid rgba(var(--accent-rgb),0.25); border-radius: 2px; font-family: 'Space Mono', monospace; }
+
+  .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 1.5rem; }
+  .cert-card { display: block; background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 1.8rem; text-decoration: none; color: var(--text); transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
+  a.cert-card:hover, a.cert-card:focus-visible { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 30px rgba(var(--accent-rgb),0.1); outline: none; }
+  .cert-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .cert-name { font-size: 1.15rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.4rem; }
+  .cert-issuer { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.4rem; }
+  .cert-verify { display: inline-flex; align-items: center; gap: 0.3rem; font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--accent); border: 1px solid var(--accent); padding: 0.35rem 0.7rem; border-radius: 2px; letter-spacing: 1px; transition: all 0.3s; }
+  a.cert-card:hover .cert-verify, a.cert-card:focus-visible .cert-verify { background: var(--accent-fill); border-color: var(--accent-fill); color: var(--on-accent); }
+  .cert-static { color: var(--muted); border-color: var(--border); }
 
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
   .contact-info p { color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
   .contact-links { display: flex; flex-direction: column; gap: 1rem; }
   .contact-link { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: var(--card); border: 1px solid var(--border); border-radius: 4px; text-decoration: none; color: var(--text); transition: all 0.3s; }
   .contact-link:hover { border-color: var(--accent); transform: translateX(5px); }
-  .contact-link-icon { font-size: 1.2rem; width: 36px; text-align: center; }
+  .contact-link-icon { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; flex-shrink: 0; }
+  .contact-link-icon svg { width: 22px; height: 22px; fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
   .contact-link-text { font-size: 0.85rem; }
   .contact-link-label { font-size: 0.7rem; color: var(--muted); font-family: 'Space Mono', monospace; letter-spacing: 1px; display: block; margin-bottom: 0.1rem; }
   .contact-cta { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 2.5rem; text-align: center; }
@@ -161,48 +211,84 @@
   footer span { color: var(--accent); }
   .divider { height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); margin: 0 4rem; }
 
+  .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: -1; }
+  .particle { position: absolute; bottom: -10px; border-radius: 50%; background: var(--accent); opacity: 0; will-change: transform, opacity; animation: particleRise linear infinite; }
+  @keyframes particleRise {
+    0% { transform: translate(0, 0); opacity: 0; }
+    12% { opacity: var(--dot-a); }
+    85% { opacity: var(--dot-a); }
+    100% { transform: translate(var(--dx, 0px), calc(var(--rise, 900px) * -1)); opacity: 0; }
+  }
+  :root[data-theme="light"] .particles { display: none; }
+  @media (prefers-reduced-motion: reduce) { .particles { display: none; } }
+
   @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeLeft { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
-  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(0,212,255,0.4); } 50% { box-shadow: 0 0 0 8px rgba(0,212,255,0); } }
+  @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb),0.4); } 50% { box-shadow: 0 0 0 8px rgba(var(--accent-rgb),0); } }
   .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  @media (min-width: 901px) {
+    .hero { display: grid; grid-template-columns: minmax(0, max-content) auto; column-gap: 4rem; row-gap: 0; justify-content: center; align-content: center; }
+    .hero-content { display: contents; }
+    .hero-tag { grid-column: 1; grid-row: 1; justify-self: start; }
+    .hero h1 { grid-column: 1; grid-row: 2; align-self: center; }
+    .hero-role { grid-column: 1; grid-row: 3; }
+    .hero p { grid-column: 1; grid-row: 4; }
+    .hero-buttons { grid-column: 1; grid-row: 5; justify-self: start; }
+    .hero-photo-wrap { grid-column: 2; grid-row: 2; align-self: center; position: relative; }
+    .hero-photo-name { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 1rem; white-space: nowrap; }
+  }
   @media (max-width: 900px) {
     nav { padding: 1rem 2rem; }
     nav ul { gap: 1.5rem; }
     .hero { padding: 6rem 2rem 4rem; flex-direction: column-reverse; align-items: center; text-align: center; }
     .hero-buttons { justify-content: center; }
+    .hero h1 { font-size: clamp(1.6rem, 9vw, 3.2rem); }
     .hero p { margin: 0 auto 2.5rem; }
     section { padding: 4rem 2rem; }
     .about-grid, .contact-grid { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 1rem; padding: 2rem; text-align: center; }
     .divider { margin: 0 2rem; }
   }
+  @media (max-width: 700px) {
+    nav { gap: 1rem; padding: 1rem 1.2rem; }
+    .logo { flex-shrink: 0; font-size: 0.85rem; }
+    nav ul { gap: 1.2rem; overflow-x: auto; scrollbar-width: none; min-width: 0; flex: 1; margin-left: 0; }
+    .theme-toggle { margin-left: 0; padding: 0.45rem 0.6rem; }
+    .theme-label { display: none; }
+    nav ul::-webkit-scrollbar { display: none; }
+    nav a { font-size: 0.72rem; letter-spacing: 1px; white-space: nowrap; }
+  }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">ANBU<span>.</span>DEV</div>
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to day mode">
+    <span id="themeIcon" aria-hidden="true">☀️</span><span class="theme-label" id="themeLabel">Day</span>
+  </button>
 </nav>
 
 <section class="hero" id="home">
+  <div class="particles" id="particles" aria-hidden="true"></div>
   <div class="hero-content">
     <div class="hero-tag">// AWS CLOUD ENGINEER</div>
-    <h1>ANBU<br><span class="highlight">SUNDARA</span><br>PASUPATHI D</h1>
+    <h1>ANBU<br><span class="highlight">SUNDARA</span><br><span class="nowrap">PASUPATHI D</span></h1>
     <div class="hero-role">Cloud · DevOps · Linux Administration</div>
     <p>Hands-on experience in AWS services, cloud deployment, and Linux administration — building secure, scalable, and efficient cloud solutions.</p>
     <div class="hero-buttons">
       <a href="#projects" class="btn btn-primary">View Projects</a>
-      <a href="#contact" class="btn btn-outline">Get In Touch</a>
-      <a href="https://mail.google.com/mail/?view=cm&to=aspasupathi98@gmail.com" target="_blank" class="btn btn-outline">Hire Me</a>
+      <a href="#contact" class="btn btn-primary">Get In Touch</a>
+      <a href="https://mail.google.com/mail/?view=cm&to=aspasupathi98@gmail.com" target="_blank" class="btn btn-primary">Hire Me</a>
     </div>
   </div>
   <div class="hero-photo-wrap">
@@ -258,7 +344,7 @@
     <div class="skill-card reveal"><div class="skill-card-icon">🗄️</div><h3>Database</h3><div class="skill-tags"><span class="tag">SQL</span><span class="tag">MySQL</span></div></div>
     <div class="skill-card reveal"><div class="skill-card-icon">🌐</div><h3>Web</h3><div class="skill-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span></div></div>
     <div class="skill-card reveal"><div class="skill-card-icon">🛠️</div><h3>Tools</h3><div class="skill-tags"><span class="tag">Git</span><span class="tag">GitHub</span><span class="tag">Session Manager</span><span class="tag">EC2 Instance Connect</span></div></div>
-    <div class="skill-card reveal"><div class="skill-card-icon">🐧</div><h3>Operating Systems</h3><div class="skill-tags"><span class="tag">Linux</span><span class="tag">Windows</span><span class="tag">Amazon Linux 2</span></div></div>
+    <div class="skill-card reveal"><div class="skill-card-icon">🐧</div><h3>Operating Systems</h3><div class="skill-tags"><span class="tag">Linux</span><span class="tag">Windows</span></div></div>
   </div>
 </section>
 
@@ -295,9 +381,32 @@
 
 <div class="divider"></div>
 
+<section id="certifications">
+  <div class="reveal">
+    <div class="section-label">// 04. CERTIFICATIONS</div>
+    <h2 class="section-title">Certifications &amp; <span>Training</span></h2>
+  </div>
+  <div class="cert-grid">
+    <a class="cert-card reveal" href="https://www.credly.com/badges/059c23a3-00f1-401a-9e7c-015263ab3507/public_url" target="_blank" rel="noopener noreferrer" aria-label="AWS Certified Cloud Practitioner, verify on Credly (opens in a new tab)">
+      <div class="cert-icon">🏅</div>
+      <div class="cert-name">AWS Certified Cloud Practitioner</div>
+      <div class="cert-issuer">Amazon Web Services</div>
+      <span class="cert-verify">↗ Verify on Credly</span>
+    </a>
+    <div class="cert-card reveal">
+      <div class="cert-icon">🎓</div>
+      <div class="cert-name">AWS Cloud Application Developer</div>
+      <div class="cert-issuer">Naan Mudhalvan – Vetri Nichayam (TNSDC)</div>
+      <span class="cert-verify cert-static">Course completed</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <section id="projects">
   <div class="reveal">
-    <div class="section-label">// 04. PROJECTS</div>
+    <div class="section-label">// 05. PROJECTS</div>
     <h2 class="section-title">Featured <span>Projects</span></h2>
   </div>
   <div class="projects-grid">
@@ -338,7 +447,7 @@
 
 <section id="contact">
   <div class="reveal">
-    <div class="section-label">// 05. CONTACT</div>
+    <div class="section-label">// 06. CONTACT</div>
     <h2 class="section-title">Get In <span>Touch</span></h2>
   </div>
   <div class="contact-grid reveal">
@@ -348,19 +457,19 @@
       </div>
       <div class="contact-links">
         <a href="https://mail.google.com/mail/?view=cm&to=aspasupathi98@gmail.com" target="_blank" class="contact-link">
-          <div class="contact-link-icon">📧</div>
+          <div class="contact-link-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
           <div class="contact-link-text"><span class="contact-link-label">EMAIL</span>aspasupathi98@gmail.com</div>
         </a>
-        <a href="tel:9543682162" class="contact-link">
-          <div class="contact-link-icon">📞</div>
-          <div class="contact-link-text"><span class="contact-link-label">PHONE</span>9543682162</div>
+        <a href="tel:+919543682162" class="contact-link">
+          <div class="contact-link-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div class="contact-link-text"><span class="contact-link-label">PHONE</span>+91 95436 82162</div>
         </a>
         <a href="http://www.linkedin.com/in/anbulsundarapasupathi" target="_blank" class="contact-link">
-          <div class="contact-link-icon">💼</div>
+          <div class="contact-link-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
           <div class="contact-link-text"><span class="contact-link-label">LINKEDIN</span>Anbu Sundara Pasupathi</div>
         </a>
         <a href="https://github.com/aspasupathi98-del" target="_blank" class="contact-link">
-          <div class="contact-link-icon">🐙</div>
+          <div class="contact-link-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></div>
           <div class="contact-link-text"><span class="contact-link-label">GITHUB</span>aspasupathi98-del</div>
         </a>
       </div>
@@ -378,6 +487,70 @@
   <p>Built with <span>♥</span> · AWS Cloud Engineer · Madurai, Tamil Nadu</p>
 </footer>
 
+<script>
+  (function () {
+    var box = document.getElementById('particles');
+    var hero = document.getElementById('home');
+    if (!box || !hero) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var count = window.innerWidth < 700 ? 12 : 22;
+    for (var i = 0; i < count; i++) {
+      var d = document.createElement('span');
+      d.className = 'particle';
+      var size = 3 + Math.round(Math.random() * 3);
+      d.style.cssText = 'left:' + (Math.random() * 100).toFixed(1) + '%;width:' + size + 'px;height:' + size + 'px;--dx:' + Math.round(Math.random() * 60 - 30) + 'px;animation-duration:' + (9 + Math.random() * 9).toFixed(1) + 's;animation-delay:-' + (Math.random() * 14).toFixed(1) + 's';
+      box.appendChild(d);
+    }
+    function setRise() { box.style.setProperty('--rise', hero.offsetHeight + 'px'); }
+    setRise();
+    window.addEventListener('resize', setRise);
+  })();
+</script>
+<script>
+  (function () {
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    var icon = document.getElementById('themeIcon');
+    var label = document.getElementById('themeLabel');
+    var meta = document.querySelector('meta[name="theme-color"]');
+    function apply(theme) {
+      var light = theme === 'light';
+      root.setAttribute('data-theme', light ? 'light' : 'dark');
+      icon.textContent = light ? '🌙' : '☀️';
+      label.textContent = light ? 'Night' : 'Day';
+      btn.setAttribute('aria-label', light ? 'Switch to night mode' : 'Switch to day mode');
+      if (meta) meta.setAttribute('content', light ? '#fafafa' : '#000000');
+    }
+    var saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    apply(saved === 'light' ? 'light' : 'dark');
+    btn.addEventListener('click', function () {
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      apply(next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+</script>
+<script>
+  (function () {
+    function fitName() {
+      var h = document.querySelector('.hero h1');
+      var line = h.querySelector('.nowrap');
+      if (!h || !line) return;
+      h.style.fontSize = '';
+      var avail = h.clientWidth;
+      var need = line.getBoundingClientRect().width;
+      if (need > avail + 1) {
+        var fs = parseFloat(getComputedStyle(h).fontSize);
+        h.style.fontSize = (Math.floor(fs * avail / need * 0.97 * 10) / 10) + 'px';
+      }
+    }
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(fitName); }
+    window.addEventListener('load', fitName);
+    window.addEventListener('resize', fitName);
+    fitName();
+  })();
+</script>
 <script>
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
